@@ -1,0 +1,24 @@
+version: '3.9'            # Version 3.9 is quite new and should work
+
+services:
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_DB=econfi-v1
+      - POSTGRES_USER=jph
+      - POSTGRES_PASSWORD=jph
+  app:   
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_DB=econfi-v1
+      - POSTGRES_USER=jph
+      - POSTGRES_PASSWORD=jph
+      - POSTGRES_HOST=db
