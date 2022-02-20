@@ -6,6 +6,8 @@ COPY --chown=node:node . .
 
 RUN npm ci
 
+RUN npm run build
+
 ENV NODE_ENV=development
 
 USER node

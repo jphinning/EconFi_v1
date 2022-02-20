@@ -3,6 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+//TypeORM
+require("reflect-metadata");
+const typeorm_1 = require("typeorm");
+const database_1 = __importDefault(require("./config/database"));
+//Express
 const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const index_1 = __importDefault(require("./routes/index"));
@@ -18,6 +23,12 @@ app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.defaul
     }
 }));
 app.use(index_1.default);
-app.listen(PORT, () => {
-    console.log(`Running on PORT: ${PORT}`);
+(0, typeorm_1.createConnection)(database_1.default)
+    .then((_connection) => {
+    app.listen(PORT, () => {
+        console.log(`Server running on PORT ${PORT}`);
+    });
+})
+    .catch((err) => {
+    console.log(err);
 });

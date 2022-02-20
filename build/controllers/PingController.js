@@ -23,7 +23,7 @@ let PingController = class PingController {
     getMessage() {
         return __awaiter(this, void 0, void 0, function* () {
             return {
-                message: "pong"
+                message: "poondddg"
             };
         });
     }

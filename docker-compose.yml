@@ -5,8 +5,8 @@ services:
     image: postgres:14
     environment:
       - POSTGRES_DB=econfi-v1
-      - POSTGRES_USER=jph
-      - POSTGRES_PASSWORD=jph
+      - POSTGRES_USER=econfi-v1
+      - POSTGRES_PASSWORD=econfi-v1
   app:   
     build:
       context: .
@@ -19,6 +19,6 @@ services:
       - db
     environment:
       - POSTGRES_DB=econfi-v1
-      - POSTGRES_USER=jph
-      - POSTGRES_PASSWORD=jph
+      - POSTGRES_USER=econfi-v1
+      - POSTGRES_PASSWORD=econfi-v1
       - POSTGRES_HOST=db
