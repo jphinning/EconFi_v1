@@ -9,45 +9,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModel = void 0;
+exports.CommentModel = void 0;
 const typeorm_1 = require("typeorm");
-const CommentModel_1 = require("./CommentModel");
+const _1 = require(".");
 const PostModel_1 = require("./PostModel");
-let UserModel = class UserModel {
+let CommentModel = class CommentModel {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], UserModel.prototype, "id", void 0);
+], CommentModel.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({
+        type: 'text'
+    }),
     __metadata("design:type", String)
-], UserModel.prototype, "firstName", void 0);
+], CommentModel.prototype, "content", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], UserModel.prototype, "lastName", void 0);
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Number)
+], CommentModel.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], UserModel.prototype, "email", void 0);
+    (0, typeorm_1.ManyToOne)(_type => _1.UserModel, (user) => user.comments),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", _1.UserModel)
+], CommentModel.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(_type => PostModel_1.PostModel, (post) => post.user),
-    __metadata("design:type", Array)
-], UserModel.prototype, "posts", void 0);
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Number)
+], CommentModel.prototype, "postId", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(_type => CommentModel_1.CommentModel, (comment) => comment.user),
-    __metadata("design:type", Array)
-], UserModel.prototype, "comments", void 0);
+    (0, typeorm_1.ManyToOne)(_type => PostModel_1.PostModel, (post) => post.comments),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", PostModel_1.PostModel)
+], CommentModel.prototype, "post", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
-], UserModel.prototype, "createDateColumn", void 0);
+], CommentModel.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
-], UserModel.prototype, "updatedAt", void 0);
-UserModel = __decorate([
+], CommentModel.prototype, "updatedAt", void 0);
+CommentModel = __decorate([
     (0, typeorm_1.Entity)()
-], UserModel);
-exports.UserModel = UserModel;
+], CommentModel);
+exports.CommentModel = CommentModel;

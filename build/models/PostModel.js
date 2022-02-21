@@ -9,45 +9,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModel = void 0;
+exports.PostModel = void 0;
 const typeorm_1 = require("typeorm");
 const CommentModel_1 = require("./CommentModel");
-const PostModel_1 = require("./PostModel");
-let UserModel = class UserModel {
+const UserModel_1 = require("./UserModel");
+let PostModel = class PostModel {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], UserModel.prototype, "id", void 0);
+], PostModel.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserModel.prototype, "firstName", void 0);
+], PostModel.prototype, "title", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({
+        type: "text"
+    }),
     __metadata("design:type", String)
-], UserModel.prototype, "lastName", void 0);
+], PostModel.prototype, "content", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], UserModel.prototype, "email", void 0);
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Number)
+], PostModel.prototype, "userID", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(_type => PostModel_1.PostModel, (post) => post.user),
+    (0, typeorm_1.ManyToOne)(_type => UserModel_1.UserModel, (user) => user.posts),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", UserModel_1.UserModel)
+], PostModel.prototype, "user", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(_type => CommentModel_1.CommentModel, (comment) => comment.post),
     __metadata("design:type", Array)
-], UserModel.prototype, "posts", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(_type => CommentModel_1.CommentModel, (comment) => comment.user),
-    __metadata("design:type", Array)
-], UserModel.prototype, "comments", void 0);
+], PostModel.prototype, "comments", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
-], UserModel.prototype, "createDateColumn", void 0);
+], PostModel.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
-], UserModel.prototype, "updatedAt", void 0);
-UserModel = __decorate([
+], PostModel.prototype, "updatedAt", void 0);
+PostModel = __decorate([
     (0, typeorm_1.Entity)()
-], UserModel);
-exports.UserModel = UserModel;
+], PostModel);
+exports.PostModel = PostModel;
