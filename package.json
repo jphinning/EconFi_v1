@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node build/server.js",
     "build": "tsc",
-    "dev": "ts-node-dev src/server.ts"
+    "dev": "ts-node-dev src/server.ts",
+    "swagger": "tsoa spec"
   },
   "keywords": [],
   "author": "",
