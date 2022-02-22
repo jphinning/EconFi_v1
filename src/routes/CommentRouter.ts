@@ -18,12 +18,19 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  const controller = new CommentController();
-  const response = await controller.getComment(req.params.id);
 
-  if (!response) res.status(404).send({ message: 'No user found' });
+  try {
+    const controller = new CommentController();
+    const response = await controller.getComment(req.params.id);
 
-  return res.send(response);
+    if (!response) return res.status(404).send({ message: 'No user found' });
+
+    return res.send(response);
+
+  } catch (error) {
+    res.status(400).send({ message: 'error' });
+  }
+  
 });
 
 export default router;
